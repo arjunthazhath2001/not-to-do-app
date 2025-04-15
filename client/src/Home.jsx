@@ -18,9 +18,17 @@ function Home() {
     setMyTodos(result.data.todos)
   }
 
+
   useEffect(() => {
     getTodo()
   }, [mytodos])
+
+  
+  function handleKeyDown(e){
+    if(e.key=="Enter"){
+      addTodo()
+    }
+  }
 
 
   async function addTodo() {
@@ -32,6 +40,7 @@ function Home() {
     const response = await axios.post(URL, {
       title: todoItem
     })
+    inputRef.current.value=""
     alert(response.data)
 
 
@@ -40,7 +49,7 @@ function Home() {
   return (<div className="bg-black/90 flex-col justify-center items-center w-full min-h-screen pt-10 pb-20 px-20">
     <div className="font-bold text-center text-4xl mb-10 text-white">NOT TODO APP</div>
     <div className="flex justify-center gap-2 items-center">
-      <InputBox placeholder={"enter not todo"} ref={inputRef} />
+      <InputBox placeholder={"enter not todo"} ref={inputRef} onKeyDown={(e)=>handleKeyDown(e)}/>
       <Button title={"ADD"} onclick={addTodo} />
     </div>
     <RenderTodos todolist={mytodos} />

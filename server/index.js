@@ -68,7 +68,7 @@ app.put('/todos/:id',async(req,res)=>{
 
 
     if(modified){
-        res.json("modified")
+        res.json({message:"modified"})
     }} catch(e){
         res.json("couldnt modify try later")
     }
@@ -82,9 +82,9 @@ app.delete('/todos/:id',async(req,res)=>{
     try{
     const deleted= await client.query(`DELETE FROM todos WHERE id=($1)`,[id])
     if(deleted){
-        res.json("deleted")
+        res.json({message:"deleted"})
     }} catch(e){
-        res.json("some error")
+        res.json({message:"some error"})
     }
 })
 
